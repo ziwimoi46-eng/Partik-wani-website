@@ -16,6 +16,8 @@ import FloatingButtons from "@/components/FloatingButtons";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SECTION_COUNT = 10;
+
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollWrapperRef = useRef<HTMLDivElement>(null);
@@ -23,107 +25,118 @@ export default function Home() {
 
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
-    
+
     if (isMobile) {
-      const panels = document.querySelectorAll('.panel');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const index = Array.from(panels).indexOf(entry.target as Element);
-            setActiveSection(index);
-          }
-        });
-      }, { threshold: 0.5 });
-      
-      panels.forEach(p => observer.observe(p));
+      const panels = document.querySelectorAll(".panel");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = Array.from(panels).indexOf(entry.target as Element);
+              setActiveSection(index);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      panels.forEach((p) => observer.observe(p));
       return () => observer.disconnect();
     }
 
     const container = containerRef.current;
     const wrapper = scrollWrapperRef.current;
-    
     if (!container || !wrapper) return;
 
-    const sections = gsap.utils.toArray(".panel");
+    const sections = gsap.utils.toArray<Element>(".panel");
+
+    gsap.set(sections, { willChange: "transform" });
 
     const scrollTween = gsap.to(sections, {
-      xPercent: -100 * (sections.length - 1),
+      xPercent: -100 * (SECTION_COUNT - 1),
       ease: "none",
       scrollTrigger: {
         trigger: wrapper,
         pin: true,
         scrub: 1,
-        snap: 1 / (sections.length - 1),
-        end: () => "+=" + container.offsetWidth,
+        snap: {
+          snapTo: 1 / (SECTION_COUNT - 1),
+          duration: { min: 0.2, max: 0.5 },
+          delay: 0.05,
+          ease: "power1.inOut",
+        },
+        end: () => "+=" + (SECTION_COUNT - 1) * window.innerWidth,
         onUpdate: (self) => {
-          const progress = self.progress;
-          const currentSection = Math.round(progress * (sections.length - 1));
+          const currentSection = Math.round(self.progress * (SECTION_COUNT - 1));
           setActiveSection(currentSection);
-        }
-      }
+        },
+        invalidateOnRefresh: true,
+      },
     });
 
+    const ro = new ResizeObserver(() => ScrollTrigger.refresh());
+    ro.observe(document.body);
+
     return () => {
-      scrollTween.kill();
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      try {
+        scrollTween.kill();
+        ScrollTrigger.getAll().forEach((t) => t.kill());
+        ScrollTrigger.clearScrollMemory();
+      } catch (_) {}
+      ro.disconnect();
     };
   }, []);
 
   return (
-    <div className="bg-background text-foreground min-h-screen relative font-sans overflow-x-hidden">
+    <div className="bg-background text-foreground relative font-sans">
       <Navbar activeSection={activeSection} />
       <FloatingButtons activeSection={activeSection} />
-      
-      {/* Scroll Progress Line */}
-      <div className="fixed bottom-0 left-0 h-1 bg-primary/20 w-full z-50 hidden md:block pointer-events-none">
-        <div 
+
+      {/* Scroll progress line — desktop */}
+      <div className="fixed bottom-0 left-0 h-[2px] bg-primary/15 w-full z-50 hidden md:block pointer-events-none">
+        <div
           className="h-full bg-primary transition-all duration-300 ease-out"
-          style={{ width: `${(activeSection / 9) * 100}%` }}
+          style={{ width: `${(activeSection / (SECTION_COUNT - 1)) * 100}%` }}
         />
       </div>
 
+      {/* Desktop: GSAP horizontal scroll wrapper */}
       <div ref={scrollWrapperRef} className="md:h-screen md:overflow-hidden md:flex">
-        <div 
-          ref={containerRef} 
-          className="md:flex md:w-[1000vw] h-[100dvh] flex-col md:flex-row max-md:overflow-y-auto max-md:snap-y max-md:snap-mandatory hide-scrollbar"
+        <div
+          ref={containerRef}
+          className="md:flex md:flex-row md:w-[1000vw]"
         >
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="hero">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="hero">
             <Hero />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="about">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="about">
             <About />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="services">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="services">
             <Services />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="process">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="process">
             <Process />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="why-us">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="why-us">
             <WhyUs />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="portfolio">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="portfolio">
             <Portfolio />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="gallery">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="gallery">
             <Gallery />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="testimonials">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="testimonials">
             <Testimonials />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="faq">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden min-h-screen" id="faq">
             <FAQ />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="appointment">
+          <div className="panel md:w-screen md:h-screen md:flex-shrink-0 relative md:overflow-hidden" id="appointment">
             <Appointment />
           </div>
         </div>
       </div>
-      
-      <style dangerouslySetInnerHTML={{ __html: `
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-      `}} />
     </div>
   );
 }

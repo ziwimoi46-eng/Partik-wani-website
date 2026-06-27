@@ -48,7 +48,6 @@ export default function Gallery() {
 
   const safeFeatured = Math.min(featuredIdx, filtered.length - 1);
 
-  // Auto-cycle featured
   useEffect(() => {
     if (lightboxIdx !== null) return;
     intervalRef.current = setInterval(() => {
@@ -57,7 +56,6 @@ export default function Gallery() {
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
   }, [filtered.length, lightboxIdx]);
 
-  // Reset on category change
   useEffect(() => { setFeaturedIdx(0); }, [activeCategory]);
 
   const featuredImage = filtered[safeFeatured];
@@ -72,8 +70,8 @@ export default function Gallery() {
   };
 
   return (
-    <div className="relative w-full h-full bg-[#0d0c0b] flex flex-col overflow-hidden">
-      <div className="relative z-10 flex flex-col h-full pt-20 md:pt-22 pb-4 px-4 md:px-10 lg:px-16 xl:px-20 max-w-[1500px] mx-auto w-full">
+    <div className="relative w-full md:h-full min-h-screen bg-[#0d0c0b] flex flex-col overflow-hidden">
+      <div className="relative z-10 flex flex-col pt-20 md:pt-22 pb-4 px-4 md:px-10 lg:px-16 xl:px-20 max-w-[1500px] mx-auto w-full md:h-full">
 
         {/* Header + category tabs */}
         <div className="flex-shrink-0 mb-3 md:mb-4">
@@ -88,8 +86,8 @@ export default function Gallery() {
               </h2>
             </div>
 
-            {/* Category pills — scroll on mobile */}
-            <div className="flex gap-1.5 overflow-x-auto hide-scrollbar pb-1 sm:flex-wrap sm:justify-end flex-shrink-0">
+            {/* Category pills */}
+            <div className="flex gap-1.5 overflow-x-auto hide-scrollbar pb-1 sm:flex-wrap sm:justify-end flex-shrink-0 max-w-full">
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -107,13 +105,12 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Main layout */}
-        <div className="flex-1 min-h-0 flex flex-col md:flex-row gap-3 md:gap-4">
+        {/* Main layout: stacks on mobile, side-by-side on desktop */}
+        <div className="flex flex-col md:flex-row gap-3 md:gap-4 md:flex-1 md:min-h-0">
 
-          {/* Featured image — left panel */}
+          {/* Featured image */}
           <div
-            className="md:w-[42%] relative overflow-hidden cursor-pointer group flex-shrink-0"
-            style={{ minHeight: "180px" }}
+            className="relative overflow-hidden cursor-pointer group flex-shrink-0 h-56 sm:h-72 md:h-auto md:w-[42%]"
             onClick={() => setLightboxIdx(safeFeatured)}
             onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
@@ -134,7 +131,6 @@ export default function Gallery() {
             </AnimatePresence>
             <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
-            {/* Prev/Next controls */}
             <button
               onClick={(e) => { e.stopPropagation(); prevFeatured(); }}
               className="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-white/50 hover:text-white transition-colors z-10"
@@ -148,7 +144,6 @@ export default function Gallery() {
               <ChevronRight size={22} />
             </button>
 
-            {/* Info */}
             <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6">
               <span className="text-[9px] text-primary tracking-widest uppercase mb-1 block">
                 {featuredImage?.categories[0]}
@@ -157,7 +152,6 @@ export default function Gallery() {
               <span className="text-[10px] text-white/40 mt-1 block">Click to enlarge</span>
             </div>
 
-            {/* Dot progress */}
             <div className="absolute top-4 left-0 right-0 flex justify-center gap-1">
               {filtered.map((_, i) => (
                 <div
@@ -170,9 +164,9 @@ export default function Gallery() {
             </div>
           </div>
 
-          {/* Thumbnail grid — right panel */}
+          {/* Thumbnail grid */}
           <div
-            className="flex-1 min-h-0 overflow-y-auto hide-scrollbar"
+            className="flex-1 md:min-h-0 overflow-y-auto hide-scrollbar"
             onTouchStart={(e) => { thumbTouchStartX.current = e.touches[0].clientX; }}
             onTouchEnd={(e) => {
               const dx = thumbTouchStartX.current - e.changedTouches[0].clientX;

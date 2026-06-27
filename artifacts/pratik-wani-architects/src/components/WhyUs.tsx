@@ -13,17 +13,17 @@ const features = [
 
 export default function WhyUs() {
   return (
-    <div className="relative w-full h-full bg-[#0d0c0b] flex flex-col overflow-hidden">
+    <div className="relative w-full md:h-full min-h-screen bg-[#0d0c0b] flex flex-col overflow-hidden">
       {/* Ambient glows */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 -left-32 w-[36rem] h-[36rem] bg-primary/4 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 -right-32 w-[36rem] h-[36rem] bg-primary/4 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative z-10 flex flex-col h-full pt-20 md:pt-24 pb-6 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
+      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
 
-        {/* Top: heading + stats */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 items-start lg:items-end mb-6 md:mb-8 flex-shrink-0">
+        {/* Heading + stats */}
+        <div className="flex flex-col lg:flex-row gap-5 lg:gap-16 items-start lg:items-end mb-6 md:mb-8 flex-shrink-0">
           <div className="lg:flex-1">
             <div className="flex items-center gap-3 text-primary/60 mb-3">
               <div className="h-px w-8 bg-primary/50" />
@@ -41,7 +41,6 @@ export default function WhyUs() {
             </motion.h2>
           </div>
 
-          {/* Stats */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -63,8 +62,8 @@ export default function WhyUs() {
           </motion.div>
         </div>
 
-        {/* Feature cards grid */}
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 min-h-0">
+        {/* Feature cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pb-4 md:flex-1 md:content-start md:min-h-0">
           {features.map((feature, idx) => (
             <motion.div
               key={idx}

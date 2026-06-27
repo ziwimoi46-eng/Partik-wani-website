@@ -6,7 +6,7 @@ import img3 from "@assets/Screenshot_20260627-173038_Maps_1782562014793.jpg";
 
 export default function About() {
   return (
-    <div className="relative w-full h-full bg-[#0a0908] flex items-center overflow-hidden">
+    <div className="relative w-full md:h-full min-h-screen bg-[#0a0908] flex items-center overflow-hidden">
       {/* Background images — split left/right */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 flex">
@@ -19,7 +19,6 @@ export default function About() {
             style={{ backgroundImage: `url(${img2})` }}
           />
         </div>
-        {/* Gradient overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0908] via-[#0a0908]/75 to-[#0a0908]/50" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0908]/80 via-transparent to-[#0a0908]/60" />
       </div>
@@ -32,11 +31,11 @@ export default function About() {
       <div className="absolute right-0 inset-y-0 w-[40%] bg-gradient-to-l from-transparent to-[#0a0908]/90 hidden md:block" />
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full pt-20 pb-8 px-6 md:px-14 lg:px-20 xl:px-28 max-w-[900px]">
+      <div className="relative z-10 flex flex-col justify-center w-full pt-24 pb-12 px-6 md:px-14 lg:px-20 xl:px-28 max-w-[900px]">
         <motion.div
           initial={{ opacity: 0, y: 36 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="flex items-center gap-3 text-primary/80 mb-5">
@@ -44,19 +43,19 @@ export default function About() {
             <span className="text-[10px] uppercase tracking-[0.25em] font-medium">The Philosophy</span>
           </div>
 
-          <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif leading-tight text-foreground mb-6 md:mb-8">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-serif leading-tight text-foreground mb-5 md:mb-7">
             We transform spaces <br className="hidden md:block" />
             into{" "}
             <span className="text-primary italic">lived art.</span>
           </h2>
 
-          <p className="text-base md:text-lg lg:text-xl text-muted-foreground font-light leading-relaxed max-w-2xl mb-6">
+          <p className="text-base md:text-lg lg:text-xl text-muted-foreground font-light leading-relaxed max-w-2xl mb-5">
             Every project we deliver carries a signature: warmth, precision, and an instinctive
             sense of luxury. We believe architecture is not just about building structures — it is
             about crafting experiences that endure.
           </p>
 
-          <p className="text-sm md:text-base text-muted-foreground/70 font-light leading-relaxed max-w-xl mb-8 hidden md:block">
+          <p className="text-sm md:text-base text-muted-foreground/70 font-light leading-relaxed max-w-xl mb-7 hidden md:block">
             Based in Aurangabad, Maharashtra, our studio has spent over a decade shaping homes, villas,
             offices, and commercial spaces that reflect the highest standards of design and
             craftsmanship. Each space we create is a conversation between architecture and the lives
@@ -64,7 +63,7 @@ export default function About() {
           </p>
 
           {/* Stats row */}
-          <div className="flex flex-wrap items-center gap-6 md:gap-10 mb-8 pt-6 border-t border-white/8">
+          <div className="flex flex-wrap items-center gap-6 md:gap-10 mb-7 pt-5 border-t border-white/8">
             {[
               { value: "150+", label: "Projects" },
               { value: "10+", label: "Years" },

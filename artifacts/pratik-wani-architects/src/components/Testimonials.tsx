@@ -55,8 +55,8 @@ export default function Testimonials() {
   const prev = () => setCurrent((p) => (p - 1 + testimonials.length) % testimonials.length);
 
   return (
-    <div className="relative w-full h-full bg-[#0d0c0b] flex flex-col items-center justify-center overflow-hidden">
-      {/* Background image */}
+    <div className="relative w-full md:h-full min-h-screen bg-[#0d0c0b] flex flex-col items-center justify-center overflow-hidden">
+      {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center opacity-[0.05]"
         style={{ backgroundImage: `url(${img3})` }}
@@ -64,14 +64,14 @@ export default function Testimonials() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0d0c0b]/80 via-transparent to-[#0d0c0b]/80" />
 
       <div
-        className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-8 md:px-16 pt-20 pb-8 h-full justify-center"
+        className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center text-center px-6 md:px-16 pt-24 pb-12 justify-center"
         onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
         onTouchEnd={(e) => {
           const dx = touchStartX.current - e.changedTouches[0].clientX;
           if (Math.abs(dx) > 50) dx > 0 ? next() : prev();
         }}
       >
-        {/* Rating */}
+        {/* Rating badge */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -91,11 +91,10 @@ export default function Testimonials() {
         <h2 className="text-3xl md:text-4xl font-serif text-foreground mb-8">What Our Clients Say</h2>
 
         {/* Carousel */}
-        <div className="relative w-full flex items-center justify-center min-h-[220px] md:min-h-[260px]">
-          {/* Prev */}
+        <div className="relative w-full flex items-center justify-center min-h-[200px] md:min-h-[250px]">
           <button
             onClick={prev}
-            className="absolute left-0 md:-left-4 p-2 text-white/40 hover:text-primary transition-colors z-10"
+            className="absolute left-0 md:-left-4 p-2 text-white/40 hover:text-primary transition-colors z-10 flex-shrink-0"
           >
             <ChevronLeft size={28} />
           </button>
@@ -110,7 +109,7 @@ export default function Testimonials() {
               className="px-8 md:px-16 flex flex-col items-center text-center"
             >
               <div className="text-5xl text-primary/30 font-serif leading-none mb-3 select-none">"</div>
-              <p className="text-lg md:text-xl lg:text-2xl font-serif text-white/90 leading-relaxed mb-6">
+              <p className="text-base md:text-xl lg:text-2xl font-serif text-white/90 leading-relaxed mb-5">
                 {testimonials[current].quote}
               </p>
               <h4 className="text-base font-serif text-primary mb-1">{testimonials[current].author}</h4>
@@ -130,10 +129,9 @@ export default function Testimonials() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Next */}
           <button
             onClick={next}
-            className="absolute right-0 md:-right-4 p-2 text-white/40 hover:text-primary transition-colors z-10"
+            className="absolute right-0 md:-right-4 p-2 text-white/40 hover:text-primary transition-colors z-10 flex-shrink-0"
           >
             <ChevronRight size={28} />
           </button>

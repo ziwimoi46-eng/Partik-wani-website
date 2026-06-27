@@ -6,6 +6,8 @@ interface NavbarProps {
   activeSection: number;
 }
 
+const SECTION_COUNT = 10;
+
 export default function Navbar({ activeSection }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -24,12 +26,16 @@ export default function Navbar({ activeSection }: NavbarProps) {
   const scrollToSection = (index: number) => {
     setMobileMenuOpen(false);
     const isMobile = window.innerWidth < 768;
+
     if (isMobile) {
       const panels = document.querySelectorAll(".panel");
       if (panels[index]) panels[index].scrollIntoView({ behavior: "smooth" });
       return;
     }
-    window.scrollTo({ top: index * window.innerHeight, behavior: "smooth" });
+
+    // Desktop: GSAP horizontal scroll — each section = 1 viewport-height of scroll
+    const scrollPerSection = (SECTION_COUNT - 1) * window.innerWidth / (SECTION_COUNT - 1);
+    window.scrollTo({ top: index * window.innerWidth, behavior: "smooth" });
   };
 
   return (
@@ -52,7 +58,7 @@ export default function Navbar({ activeSection }: NavbarProps) {
           PWA
         </button>
 
-        {/* Desktop nav — full on xl, condensed on lg */}
+        {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-1 xl:gap-2">
           {sections.map((name, idx) => (
             <button

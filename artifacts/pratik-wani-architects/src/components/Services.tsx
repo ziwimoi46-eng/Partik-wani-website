@@ -45,13 +45,13 @@ const item = {
 
 export default function Services() {
   return (
-    <div className="relative w-full h-full bg-[#110f0e] flex flex-col">
+    <div className="relative w-full md:h-full min-h-screen bg-[#110f0e] flex flex-col">
       {/* Decorative glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] rounded-full bg-primary/5 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 flex flex-col h-full pt-20 md:pt-24 pb-6 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
+      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
         {/* Header */}
         <div className="mb-5 md:mb-7 flex-shrink-0">
           <div className="flex items-center gap-3 text-primary/70 mb-3">
@@ -64,13 +64,13 @@ export default function Services() {
           </h2>
         </div>
 
-        {/* Grid */}
+        {/* Grid — scrollable within panel on desktop, natural height on mobile */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-0 flex-1"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-0 md:flex-1 md:min-h-0 md:overflow-y-auto hide-scrollbar"
         >
           {services.map((service, index) => (
             <motion.div
@@ -92,12 +92,15 @@ export default function Services() {
         </motion.div>
 
         {/* Footer CTA */}
-        <div className="flex-shrink-0 mt-4 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="flex-shrink-0 mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground/60 tracking-wide">
             Every service crafted with precision, delivered with care.
           </p>
           <button
-            onClick={() => window.scrollTo({ top: 9 * window.innerHeight, behavior: "smooth" })}
+            onClick={() => {
+              const el = document.getElementById("appointment");
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }}
             className="text-xs uppercase tracking-[0.18em] text-primary border border-primary/40 px-5 py-2.5 hover:bg-primary hover:text-background transition-all duration-400"
           >
             Book Consultation

@@ -37,8 +37,8 @@ export default function Portfolio() {
   const touchStartX = useRef(0);
 
   return (
-    <div className="relative w-full h-full bg-background flex flex-col overflow-hidden">
-      <div className="flex flex-col h-full pt-20 md:pt-22 pb-4 px-4 md:px-10 lg:px-14 xl:px-18 max-w-[1500px] mx-auto w-full">
+    <div className="relative w-full md:h-full min-h-screen bg-background flex flex-col overflow-hidden">
+      <div className="flex flex-col pt-20 md:pt-22 pb-4 px-4 md:px-10 lg:px-14 xl:px-18 max-w-[1500px] mx-auto w-full md:h-full">
 
         {/* Header */}
         <div className="flex-shrink-0 mb-3 md:mb-4">
@@ -51,8 +51,8 @@ export default function Portfolio() {
           </h2>
         </div>
 
-        {/* Bento grid */}
-        <div className="flex-1 min-h-0 overflow-y-auto hide-scrollbar">
+        {/* Bento grid — scrollable container on desktop */}
+        <div className="md:flex-1 md:min-h-0 md:overflow-y-auto hide-scrollbar">
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 auto-rows-[100px] md:auto-rows-[130px] lg:auto-rows-[150px] pb-4">
             {portfolioItems.map((item, index) => (
               <motion.div

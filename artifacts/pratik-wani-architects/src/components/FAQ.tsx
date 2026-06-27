@@ -34,7 +34,7 @@ const faqs = [
 
 export default function FAQ() {
   return (
-    <div className="relative w-full h-full bg-[#080808] flex flex-col overflow-hidden">
+    <div className="relative w-full md:h-full min-h-screen bg-[#080808] flex flex-col overflow-hidden">
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.03]"
@@ -45,9 +45,9 @@ export default function FAQ() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col h-full pt-20 md:pt-24 pb-6 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
+      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
 
-        {/* Header row */}
+        {/* Header */}
         <div className="flex-shrink-0 mb-5 md:mb-7">
           <div className="flex items-center gap-3 text-primary/60 mb-3">
             <div className="h-px w-8 bg-primary/50" />
@@ -68,15 +68,16 @@ export default function FAQ() {
               href="tel:08668805662"
               className="text-sm text-muted-foreground/70 hover:text-primary transition-colors font-sans tracking-wide flex-shrink-0"
             >
-              Still have questions? <span className="text-primary font-medium">Call 08668805662</span>
+              Still have questions?{" "}
+              <span className="text-primary font-medium">Call 08668805662</span>
             </a>
           </div>
         </div>
 
         {/* Two-column layout */}
-        <div className="flex-1 min-h-0 flex flex-col lg:flex-row gap-6 lg:gap-12">
-          {/* Left: accordion — scrollable within the panel */}
-          <div className="lg:flex-1 overflow-y-auto hide-scrollbar">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 md:flex-1 md:min-h-0">
+          {/* Accordion — scrollable on desktop */}
+          <div className="lg:flex-1 md:overflow-y-auto hide-scrollbar">
             <Accordion type="single" collapsible className="w-full">
               {faqs.map((faq, idx) => (
                 <AccordionItem
@@ -95,7 +96,7 @@ export default function FAQ() {
             </Accordion>
           </div>
 
-          {/* Right: CTA card — hidden on very small screens */}
+          {/* Right CTA card — hidden on mobile */}
           <div className="lg:w-72 xl:w-80 flex-shrink-0 hidden md:flex flex-col justify-center gap-6">
             <motion.div
               initial={{ opacity: 0, x: 24 }}
@@ -124,7 +125,6 @@ export default function FAQ() {
               </a>
             </motion.div>
 
-            {/* Mini stats */}
             <div className="flex flex-col gap-3 pl-1">
               {[
                 { label: "Projects Delivered", val: "150+" },

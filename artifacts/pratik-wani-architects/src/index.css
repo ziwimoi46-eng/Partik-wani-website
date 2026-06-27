@@ -104,37 +104,41 @@
 }
 
 @layer base {
-  * {
+  *, *::before, *::after {
+    box-sizing: border-box;
     @apply border-border;
   }
-  body {
-    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
-    overscroll-behavior-y: none;
+
+  html {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    overflow-x: hidden;
+    overscroll-behavior-x: none;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
 }
 
-/* Hide scrollbar utility */
+/* ── Scrollbar utilities ── */
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-/* Date input color scheme */
+/* Custom scrollbar for desktop */
+@media (min-width: 768px) {
+  ::-webkit-scrollbar        { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track  { background: hsl(var(--background)); }
+  ::-webkit-scrollbar-thumb  { background: hsl(var(--border)); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--primary) / 0.5); }
+}
+
+/* Date input dark scheme */
 input[type="date"] { color-scheme: dark; }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-track {
-  background: hsl(var(--background)); 
-}
-::-webkit-scrollbar-thumb {
-  background: hsl(var(--border)); 
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--primary) / 0.5); 
-}
+/* Prevent horizontal overflow on all screen sizes */
+body { max-width: 100vw; }
