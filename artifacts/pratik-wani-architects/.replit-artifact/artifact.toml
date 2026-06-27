@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Pratik Wani Architects"
+version = "1.0.0"
+id = "artifacts/pratik-wani-architects"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 21585
+
+[services.development]
+run = "pnpm --filter @workspace/pratik-wani-architects run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/pratik-wani-architects", "run", "build" ]
+publicDir = "artifacts/pratik-wani-architects/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "21585"
+BASE_PATH = "/"
