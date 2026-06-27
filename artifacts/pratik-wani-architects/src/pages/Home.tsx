@@ -4,9 +4,15 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Services from "@/components/Services";
+import Process from "@/components/Process";
+import WhyUs from "@/components/WhyUs";
 import Portfolio from "@/components/Portfolio";
-import Contact from "@/components/Contact";
+import Gallery from "@/components/Gallery";
+import Testimonials from "@/components/Testimonials";
+import FAQ from "@/components/FAQ";
+import Appointment from "@/components/Appointment";
 import Navbar from "@/components/Navbar";
+import FloatingButtons from "@/components/FloatingButtons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +25,6 @@ export default function Home() {
     const isMobile = window.innerWidth < 768;
     
     if (isMobile) {
-      // Intersection Observer for mobile to update activeSection
       const panels = document.querySelectorAll('.panel');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -67,19 +72,20 @@ export default function Home() {
   return (
     <div className="bg-background text-foreground min-h-screen relative font-sans overflow-x-hidden">
       <Navbar activeSection={activeSection} />
+      <FloatingButtons activeSection={activeSection} />
       
       {/* Scroll Progress Line */}
-      <div className="fixed bottom-0 left-0 h-1 bg-primary/20 w-full z-50 hidden md:block">
+      <div className="fixed bottom-0 left-0 h-1 bg-primary/20 w-full z-50 hidden md:block pointer-events-none">
         <div 
           className="h-full bg-primary transition-all duration-300 ease-out"
-          style={{ width: `${(activeSection / 4) * 100}%` }}
+          style={{ width: `${(activeSection / 9) * 100}%` }}
         />
       </div>
 
       <div ref={scrollWrapperRef} className="md:h-screen md:overflow-hidden md:flex">
         <div 
           ref={containerRef} 
-          className="md:flex md:w-[500vw] h-[100dvh] flex-col md:flex-row max-md:overflow-y-auto max-md:snap-y max-md:snap-mandatory hide-scrollbar"
+          className="md:flex md:w-[1000vw] h-[100dvh] flex-col md:flex-row max-md:overflow-y-auto max-md:snap-y max-md:snap-mandatory hide-scrollbar"
         >
           <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="hero">
             <Hero />
@@ -90,11 +96,26 @@ export default function Home() {
           <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="services">
             <Services />
           </div>
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="process">
+            <Process />
+          </div>
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="why-us">
+            <WhyUs />
+          </div>
           <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="portfolio">
             <Portfolio />
           </div>
-          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="contact">
-            <Contact />
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="gallery">
+            <Gallery />
+          </div>
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="testimonials">
+            <Testimonials />
+          </div>
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="faq">
+            <FAQ />
+          </div>
+          <div className="panel md:w-screen h-screen flex-shrink-0 relative overflow-hidden max-md:h-[100dvh] max-md:snap-start" id="appointment">
+            <Appointment />
           </div>
         </div>
       </div>

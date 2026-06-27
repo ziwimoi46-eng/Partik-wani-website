@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
 import img1 from "@assets/Screenshot_20260627-172950_Maps_1782562014958.jpg";
 import img2 from "@assets/Screenshot_20260627-172953_Maps_1782562014930.jpg";
@@ -34,6 +35,7 @@ const portfolioItems = [
 
 export default function Portfolio() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
 
   useEffect(() => {
     // Parallax effect applied when scrolling horizontally
@@ -60,7 +62,7 @@ export default function Portfolio() {
     <div className="relative w-full h-full bg-background flex items-center p-6 md:p-12 overflow-hidden" ref={containerRef}>
       <div className="h-full w-full flex flex-col justify-center max-w-[90vw] mx-auto">
         <div className="mb-8 flex items-center gap-3 text-primary/80">
-          <span className="text-sm uppercase tracking-[0.2em]">Selected Works</span>
+          <span className="text-sm uppercase tracking-[0.2em]">Featured Works</span>
           <div className="h-[1px] w-16 bg-primary/40" />
         </div>
         
@@ -72,7 +74,8 @@ export default function Portfolio() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-10%" }}
               transition={{ duration: 0.8, delay: index * 0.05 }}
-              className="relative group overflow-hidden rounded-sm"
+              onClick={() => setSelectedImage(index)}
+              className="relative group overflow-hidden rounded-sm cursor-pointer"
               style={{
                 gridColumn: `span ${item.colSpan}`,
                 gridRow: `span ${item.rowSpan}`,
@@ -92,6 +95,53 @@ export default function Portfolio() {
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedImage !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] bg-black/95 flex items-center justify-center p-4 md:p-12"
+          >
+            <button 
+              className="absolute top-6 right-6 text-white/70 hover:text-white z-50 p-2"
+              onClick={() => setSelectedImage(null)}
+            >
+              <X size={32} />
+            </button>
+            
+            <button 
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white z-50 p-4"
+              onClick={(e) => { e.stopPropagation(); setSelectedImage((prev) => (prev! - 1 + portfolioItems.length) % portfolioItems.length); }}
+            >
+              <ChevronLeft size={48} />
+            </button>
+            
+            <button 
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white z-50 p-4"
+              onClick={(e) => { e.stopPropagation(); setSelectedImage((prev) => (prev! + 1) % portfolioItems.length); }}
+            >
+              <ChevronRight size={48} />
+            </button>
+
+            <div className="relative max-w-6xl max-h-full w-full h-full flex flex-col items-center justify-center">
+              <motion.img 
+                key={selectedImage}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3 }}
+                src={portfolioItems[selectedImage].src} 
+                className="max-w-full max-h-[85vh] object-contain rounded-sm"
+                alt={portfolioItems[selectedImage].type}
+              />
+              <div className="mt-6 text-center">
+                <h3 className="text-2xl font-serif text-white mb-2">{portfolioItems[selectedImage].type}</h3>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
