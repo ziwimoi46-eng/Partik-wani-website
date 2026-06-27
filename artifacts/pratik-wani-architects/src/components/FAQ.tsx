@@ -3,142 +3,117 @@ import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/
 
 const faqs = [
   {
-    q: "How does your design process work?",
-    a: "We follow a 6-step process: Discovery, Concept Design, Design Development, Client Approval, Execution, and Handover. Every step is collaborative and transparent, ensuring your vision guides the outcome.",
+    q: "What types of projects do you handle?",
+    a: "We handle the full spectrum — residential homes, luxury villas, apartments, offices, commercial spaces, and more. Whether you need a complete architectural design from scratch or an interior redesign, we deliver end-to-end.",
+  },
+  {
+    q: "Where are you based and do you work outside Aurangabad?",
+    a: "Our studio is based in Aurangabad, Maharashtra. We do take select projects in Pune, Nashik, Mumbai, and other cities. Contact us to discuss your location and requirements.",
   },
   {
     q: "How long does a typical project take?",
-    a: "Interior projects typically take 3–6 months, residential architecture 8–18 months, and turnkey projects depend on scope. We provide a detailed schedule at the start of every engagement.",
+    a: "Timelines vary by scope. Interior design projects typically run 3–6 months; full architectural and construction projects 12–24 months. We always share a detailed project timeline upfront so you know exactly what to expect.",
   },
   {
-    q: "Do you provide turnkey interior solutions?",
-    a: "Yes. We handle everything from concept design to furniture selection, material sourcing, civil work, and final styling — a complete, stress-free turnkey experience.",
+    q: "Do you offer 3D visualization before construction?",
+    a: "Absolutely. We provide photorealistic 3D renders of every space before a single brick is laid. This allows you to see, review, and approve the design with full confidence.",
   },
   {
-    q: "Can I book a consultation online?",
-    a: "Absolutely. Use our online appointment booking system to select your preferred date, time, and service. You can also reach us directly at 08668805662.",
+    q: "What is your pricing model?",
+    a: "Our fees are based on project scope — area, complexity, and service level. We offer transparent, itemized estimates and there are no hidden surprises. Book a free consultation to discuss your budget and requirements.",
   },
   {
-    q: "Do you handle both residential and commercial projects?",
-    a: "Yes. We have extensive experience across residential (apartments, villas, bungalows) and commercial (offices, showrooms, hospitality) projects across Maharashtra.",
+    q: "Can you manage the entire construction process?",
+    a: "Yes. We offer full turnkey services — design, material procurement, site supervision, and handover. You get a single point of accountability from concept to completion.",
   },
   {
-    q: "What areas do you serve?",
-    a: "We primarily serve Chhatrapati Sambhajinagar (Aurangabad) and surrounding areas including Pune, Nashik, Latur, and across Maharashtra. We also accept select projects nationally.",
+    q: "Do you work with a client's preferred contractor?",
+    a: "Yes, we can collaborate with your existing contractor or introduce you to our trusted network of craftsmen and vendors, depending on your preference.",
   },
   {
-    q: "How do you handle material selection?",
-    a: "Our in-house team curates materials and finishes from trusted suppliers, presenting options with samples and 3D visualizations so you can see exactly how your space will look before execution.",
+    q: "What makes PWA different from other firms?",
+    a: "We combine design artistry with rigorous project management. Our commitment is to deliver spaces that feel personal, premium, and purposeful — on time and on budget.",
   },
 ];
 
 export default function FAQ() {
   return (
-    <div className="relative w-full md:h-full min-h-screen bg-[#080808] flex flex-col overflow-hidden">
-      {/* Grid background */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.03]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, #c8a96e 1px, transparent 1px), linear-gradient(to bottom, #c8a96e 1px, transparent 1px)",
-          backgroundSize: "3rem 3rem",
-        }}
-      />
+    <div className="relative w-full min-h-screen bg-[#0a0908] flex flex-col">
+      {/* Grain texture */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E\")" }} />
 
-      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
-
+      <div className="relative z-10 flex flex-col pt-28 pb-16 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1000px] mx-auto w-full">
         {/* Header */}
-        <div className="flex-shrink-0 mb-5 md:mb-7">
+        <div className="mb-8 md:mb-10">
           <div className="flex items-center gap-3 text-primary/60 mb-3">
             <div className="h-px w-8 bg-primary/50" />
-            <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Questions & Answers</span>
+            <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Common Questions</span>
           </div>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-            <motion.h2
-              initial={{ opacity: 0, y: 18 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-serif text-foreground leading-tight"
-            >
-              Everything You{" "}
-              <span className="text-primary italic">Need to Know</span>
-            </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="text-3xl md:text-5xl lg:text-6xl font-serif text-foreground leading-tight"
+          >
+            Frequently Asked <span className="text-primary italic">Questions</span>
+          </motion.h2>
+        </div>
+
+        {/* Accordion */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <Accordion type="single" collapsible className="w-full space-y-0">
+            {faqs.map((faq, idx) => (
+              <AccordionItem
+                key={idx}
+                value={`item-${idx}`}
+                className="border-b border-white/[0.08] first:border-t"
+              >
+                <AccordionTrigger className="text-left text-sm md:text-base font-serif text-foreground/90 hover:text-primary py-5 pr-4 transition-colors duration-200 [&[data-state=open]]:text-primary">
+                  {faq.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm text-muted-foreground/80 font-light leading-relaxed pb-5 pr-4">
+                  {faq.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-10 pt-8 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+        >
+          <p className="text-sm text-muted-foreground/70 max-w-xs">
+            Still have questions? Our team is happy to help you.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-3">
             <a
               href="tel:08668805662"
-              className="text-sm text-muted-foreground/70 hover:text-primary transition-colors font-sans tracking-wide flex-shrink-0"
+              className="text-xs uppercase tracking-[0.18em] text-white/60 border border-white/15 px-5 py-2.5 hover:text-white hover:border-white/40 transition-all duration-300 text-center"
             >
-              Still have questions?{" "}
-              <span className="text-primary font-medium">Call 08668805662</span>
+              Call Us
             </a>
-          </div>
-        </div>
-
-        {/* Two-column layout */}
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-12 md:flex-1 md:min-h-0">
-          {/* Accordion — scrollable on desktop */}
-          <div className="lg:flex-1 md:overflow-y-auto hide-scrollbar">
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, idx) => (
-                <AccordionItem
-                  key={idx}
-                  value={`item-${idx}`}
-                  className="border-white/[0.08] mb-1"
-                >
-                  <AccordionTrigger className="text-left font-serif text-base md:text-lg text-white/85 hover:text-primary data-[state=open]:text-primary py-4 md:py-5 transition-colors">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground/80 font-sans text-sm leading-relaxed border-l-2 border-primary/60 pl-5 ml-1 pb-5">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-
-          {/* Right CTA card — hidden on mobile */}
-          <div className="lg:w-72 xl:w-80 flex-shrink-0 hidden md:flex flex-col justify-center gap-6">
-            <motion.div
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.65 }}
-              className="p-7 border border-primary/20 bg-primary/5 flex flex-col gap-4"
+            <button
+              onClick={() => {
+                const el = document.getElementById("appointment");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-xs uppercase tracking-[0.18em] text-primary border border-primary/50 px-5 py-2.5 hover:bg-primary hover:text-background transition-all duration-400 text-center"
             >
-              <div className="text-3xl font-serif text-primary/30 leading-none">"</div>
-              <p className="text-sm text-muted-foreground font-sans leading-relaxed">
-                Not finding what you're looking for? Our team is available Monday–Saturday, 10 AM–7 PM to discuss your project in detail.
-              </p>
-              <a
-                href="tel:08668805662"
-                className="text-xl font-serif text-primary hover:text-white transition-colors"
-              >
-                08668805662
-              </a>
-              <a
-                href="https://wa.me/918668805662"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs text-muted-foreground/60 hover:text-[#25D366] transition-colors uppercase tracking-widest"
-              >
-                or Message on WhatsApp
-              </a>
-            </motion.div>
-
-            <div className="flex flex-col gap-3 pl-1">
-              {[
-                { label: "Projects Delivered", val: "150+" },
-                { label: "Years in Practice", val: "10+" },
-                { label: "Google Rating", val: "4.8★" },
-              ].map((s) => (
-                <div key={s.label} className="flex items-center justify-between border-b border-white/5 pb-3">
-                  <span className="text-xs text-muted-foreground/60 uppercase tracking-wider">{s.label}</span>
-                  <span className="text-base font-serif text-primary">{s.val}</span>
-                </div>
-              ))}
-            </div>
+              Book Free Consult
+            </button>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

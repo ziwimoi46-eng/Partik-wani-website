@@ -28,49 +28,40 @@ const services = [
 
 const container = {
   hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.04, delayChildren: 0.1 },
-  },
+  show: { opacity: 1, transition: { staggerChildren: 0.04, delayChildren: 0.1 } },
 };
-
 const item = {
   hidden: { opacity: 0, y: 16 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 260, damping: 22 },
-  },
+  show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 260, damping: 22 } },
 };
 
 export default function Services() {
   return (
-    <div className="relative w-full md:h-full min-h-screen bg-[#110f0e] flex flex-col">
+    <div className="relative w-full min-h-screen bg-[#110f0e] flex flex-col">
       {/* Decorative glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div className="absolute top-1/3 right-1/4 w-[28rem] h-[28rem] rounded-full bg-primary/5 blur-[120px]" />
       </div>
 
-      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
+      <div className="relative z-10 flex flex-col pt-28 pb-16 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
         {/* Header */}
-        <div className="mb-5 md:mb-7 flex-shrink-0">
+        <div className="mb-8 md:mb-10">
           <div className="flex items-center gap-3 text-primary/70 mb-3">
             <div className="h-px w-8 bg-primary/50" />
             <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Our Expertise</span>
           </div>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif text-foreground leading-tight">
-            Comprehensive{" "}
-            <span className="text-primary italic">Services</span>
+            Comprehensive <span className="text-primary italic">Services</span>
           </h2>
         </div>
 
-        {/* Grid — scrollable within panel on desktop, natural height on mobile */}
+        {/* Grid */}
         <motion.div
           variants={container}
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, amount: 0.1 }}
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-0 md:flex-1 md:min-h-0 md:overflow-y-auto hide-scrollbar"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-0 mb-8"
         >
           {services.map((service, index) => (
             <motion.div
@@ -92,7 +83,7 @@ export default function Services() {
         </motion.div>
 
         {/* Footer CTA */}
-        <div className="flex-shrink-0 mt-6 pt-4 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <p className="text-xs text-muted-foreground/60 tracking-wide">
             Every service crafted with precision, delivered with care.
           </p>

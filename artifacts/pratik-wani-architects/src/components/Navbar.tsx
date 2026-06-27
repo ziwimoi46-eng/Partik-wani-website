@@ -6,8 +6,6 @@ interface NavbarProps {
   activeSection: number;
 }
 
-const SECTION_COUNT = 10;
-
 export default function Navbar({ activeSection }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -25,17 +23,10 @@ export default function Navbar({ activeSection }: NavbarProps) {
 
   const scrollToSection = (index: number) => {
     setMobileMenuOpen(false);
-    const isMobile = window.innerWidth < 768;
-
-    if (isMobile) {
-      const panels = document.querySelectorAll(".panel");
-      if (panels[index]) panels[index].scrollIntoView({ behavior: "smooth" });
-      return;
+    const panels = document.querySelectorAll(".panel");
+    if (panels[index]) {
+      panels[index].scrollIntoView({ behavior: "smooth" });
     }
-
-    // Desktop: GSAP horizontal scroll — each section = 1 viewport-height of scroll
-    const scrollPerSection = (SECTION_COUNT - 1) * window.innerWidth / (SECTION_COUNT - 1);
-    window.scrollTo({ top: index * window.innerWidth, behavior: "smooth" });
   };
 
   return (

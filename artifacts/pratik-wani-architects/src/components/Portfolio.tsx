@@ -37,11 +37,10 @@ export default function Portfolio() {
   const touchStartX = useRef(0);
 
   return (
-    <div className="relative w-full md:h-full min-h-screen bg-background flex flex-col overflow-hidden">
-      <div className="flex flex-col pt-20 md:pt-22 pb-4 px-4 md:px-10 lg:px-14 xl:px-18 max-w-[1500px] mx-auto w-full md:h-full">
-
+    <div className="relative w-full min-h-screen bg-background flex flex-col">
+      <div className="flex flex-col pt-28 pb-16 px-4 md:px-10 lg:px-14 xl:px-18 max-w-[1500px] mx-auto w-full">
         {/* Header */}
-        <div className="flex-shrink-0 mb-3 md:mb-4">
+        <div className="mb-6 md:mb-8">
           <div className="flex items-center gap-3 text-primary/70 mb-2">
             <div className="h-px w-8 bg-primary/50" />
             <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Featured Works</span>
@@ -51,31 +50,29 @@ export default function Portfolio() {
           </h2>
         </div>
 
-        {/* Bento grid — scrollable container on desktop */}
-        <div className="md:flex-1 md:min-h-0 md:overflow-y-auto hide-scrollbar">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 auto-rows-[100px] md:auto-rows-[130px] lg:auto-rows-[150px] pb-4">
-            {portfolioItems.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.96 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, delay: index * 0.04 }}
-                onClick={() => setSelected(index)}
-                className={`relative group overflow-hidden cursor-pointer ${item.span}`}
-              >
-                <div
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
-                  style={{ backgroundImage: `url(${item.src})` }}
-                />
-                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute inset-0 p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
-                  <div className="w-6 h-px bg-primary mb-2" />
-                  <h4 className="text-white font-serif text-sm md:text-base leading-snug">{item.type}</h4>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        {/* Bento grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 md:gap-3 auto-rows-[100px] md:auto-rows-[140px] lg:auto-rows-[160px]">
+          {portfolioItems.map((item, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.96 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.04 }}
+              onClick={() => setSelected(index)}
+              className={`relative group overflow-hidden cursor-pointer ${item.span}`}
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-110"
+                style={{ backgroundImage: `url(${item.src})` }}
+              />
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-0 p-4 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0">
+                <div className="w-6 h-px bg-primary mb-2" />
+                <h4 className="text-white font-serif text-sm md:text-base leading-snug">{item.type}</h4>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
 
@@ -98,10 +95,7 @@ export default function Portfolio() {
               }
             }}
           >
-            <button
-              className="absolute top-5 right-5 text-white/60 hover:text-white p-2 z-50"
-              onClick={() => setSelected(null)}
-            >
+            <button className="absolute top-5 right-5 text-white/60 hover:text-white p-2 z-50" onClick={() => setSelected(null)}>
               <X size={26} />
             </button>
             <button
@@ -116,10 +110,7 @@ export default function Portfolio() {
             >
               <ChevronRight size={34} />
             </button>
-            <div
-              className="relative max-w-5xl w-full mx-10 flex flex-col items-center"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="relative max-w-5xl w-full mx-10 flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
               <motion.img
                 key={selected}
                 initial={{ opacity: 0, scale: 0.97 }}
@@ -131,9 +122,7 @@ export default function Portfolio() {
               />
               <div className="mt-5 text-center">
                 <h3 className="text-lg font-serif text-white mb-1">{portfolioItems[selected].type}</h3>
-                <span className="text-primary/70 text-xs uppercase tracking-widest">
-                  {`${selected + 1} / ${portfolioItems.length}`}
-                </span>
+                <span className="text-primary/70 text-xs uppercase tracking-widest">{selected + 1} / {portfolioItems.length}</span>
               </div>
             </div>
           </motion.div>

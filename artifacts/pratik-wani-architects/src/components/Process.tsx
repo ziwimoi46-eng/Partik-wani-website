@@ -35,8 +35,8 @@ const steps = [
 
 export default function Process() {
   return (
-    <div className="relative w-full md:h-full min-h-screen bg-[#0d0c0b] flex flex-col">
-      {/* Blueprint grid bg */}
+    <div className="relative w-full min-h-screen bg-[#0d0c0b] flex flex-col">
+      {/* Blueprint grid */}
       <div
         className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
@@ -46,9 +46,9 @@ export default function Process() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
+      <div className="relative z-10 flex flex-col pt-28 pb-16 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
         {/* Header */}
-        <div className="mb-6 md:mb-8 flex-shrink-0">
+        <div className="mb-8 md:mb-12">
           <div className="flex items-center gap-3 text-primary/60 mb-3">
             <div className="h-px w-8 bg-primary/50" />
             <span className="text-[10px] uppercase tracking-[0.25em] font-medium">How We Work</span>
@@ -66,27 +66,23 @@ export default function Process() {
         </div>
 
         {/* Steps grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 md:flex-1 md:min-h-0 md:content-start pb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {steps.map((step, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.1 }}
-              transition={{ delay: idx * 0.08, duration: 0.55 }}
-              className="group relative flex flex-col gap-3 p-5 md:p-6 border border-white/[0.07] bg-white/[0.02] hover:border-primary/40 hover:bg-white/[0.04] transition-all duration-400 cursor-default"
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ delay: idx * 0.1, duration: 0.55 }}
+              className="group relative flex flex-col gap-3 p-6 md:p-7 border border-white/[0.07] bg-white/[0.02] hover:border-primary/40 hover:bg-white/[0.04] transition-all duration-400 cursor-default"
             >
               <div className="text-4xl md:text-5xl font-serif text-primary/25 group-hover:text-primary/50 transition-colors duration-400 leading-none">
                 {step.num}
               </div>
               <div className="w-8 h-px bg-primary/40 group-hover:w-14 group-hover:bg-primary transition-all duration-500" />
               <div className="flex flex-col gap-1.5">
-                <h3 className="text-base md:text-lg font-serif text-foreground leading-snug">
-                  {step.title}
-                </h3>
-                <p className="text-xs md:text-sm font-sans text-muted-foreground/75 leading-relaxed">
-                  {step.desc}
-                </p>
+                <h3 className="text-base md:text-lg font-serif text-foreground leading-snug">{step.title}</h3>
+                <p className="text-xs md:text-sm font-sans text-muted-foreground/75 leading-relaxed">{step.desc}</p>
               </div>
               <div className="absolute bottom-0 right-0 w-6 h-6 border-b border-r border-primary/0 group-hover:border-primary/30 transition-colors duration-400" />
             </motion.div>

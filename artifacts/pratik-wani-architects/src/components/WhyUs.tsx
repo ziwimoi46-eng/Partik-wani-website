@@ -13,17 +13,16 @@ const features = [
 
 export default function WhyUs() {
   return (
-    <div className="relative w-full md:h-full min-h-screen bg-[#0d0c0b] flex flex-col overflow-hidden">
+    <div className="relative w-full min-h-screen bg-[#0d0c0b] flex flex-col overflow-hidden">
       {/* Ambient glows */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-0 -left-32 w-[36rem] h-[36rem] bg-primary/4 rounded-full blur-[140px]" />
         <div className="absolute bottom-0 -right-32 w-[36rem] h-[36rem] bg-primary/4 rounded-full blur-[140px]" />
       </div>
 
-      <div className="relative z-10 flex flex-col pt-20 md:pt-24 pb-8 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full md:h-full">
-
+      <div className="relative z-10 flex flex-col pt-28 pb-16 px-6 md:px-14 lg:px-20 xl:px-24 max-w-[1400px] mx-auto w-full">
         {/* Heading + stats */}
-        <div className="flex flex-col lg:flex-row gap-5 lg:gap-16 items-start lg:items-end mb-6 md:mb-8 flex-shrink-0">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-16 items-start lg:items-end mb-10 md:mb-14">
           <div className="lg:flex-1">
             <div className="flex items-center gap-3 text-primary/60 mb-3">
               <div className="h-px w-8 bg-primary/50" />
@@ -46,7 +45,7 @@ export default function WhyUs() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.25, duration: 0.6 }}
-            className="flex flex-wrap items-center gap-6 md:gap-8 lg:flex-shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-white/8 lg:border-l lg:border-white/8 lg:pl-12"
+            className="flex flex-wrap items-center gap-6 md:gap-8 pt-4 lg:pt-0 border-t lg:border-t-0 border-white/8 lg:border-l lg:border-white/8 lg:pl-12 flex-shrink-0"
           >
             {[
               { value: "150+", label: "Projects" },
@@ -63,7 +62,7 @@ export default function WhyUs() {
         </div>
 
         {/* Feature cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 pb-4 md:flex-1 md:content-start md:min-h-0">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
@@ -74,13 +73,9 @@ export default function WhyUs() {
               whileHover={{ y: -3 }}
               className="group flex flex-col gap-2 md:gap-3 p-4 md:p-5 border border-white/[0.07] border-t-primary/20 bg-white/[0.02] hover:border-t-primary hover:border-white/15 hover:bg-white/[0.04] transition-all duration-400 cursor-default"
             >
-              <span className="text-primary/50 group-hover:text-primary text-sm transition-colors duration-300">
-                {feature.symbol}
-              </span>
+              <span className="text-primary/50 group-hover:text-primary text-sm transition-colors duration-300">{feature.symbol}</span>
               <h3 className="text-sm md:text-base font-serif text-foreground leading-snug">{feature.title}</h3>
-              <p className="text-[11px] md:text-xs font-sans text-muted-foreground/70 leading-relaxed">
-                {feature.desc}
-              </p>
+              <p className="text-[11px] md:text-xs font-sans text-muted-foreground/70 leading-relaxed">{feature.desc}</p>
             </motion.div>
           ))}
         </div>

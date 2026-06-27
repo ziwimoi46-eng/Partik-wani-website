@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import ThreeBackground from "./ThreeBackground";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   return (
-    <div className="relative w-full h-full min-h-screen flex flex-col items-center justify-center bg-background overflow-hidden px-6">
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center bg-background overflow-hidden px-6">
       <ThreeBackground />
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-5xl">
@@ -36,17 +36,17 @@ export default function Hero() {
       </div>
 
       <motion.div
-        className="absolute bottom-10 right-8 md:bottom-12 md:right-12 z-10 flex items-center gap-3 text-primary"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-primary"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
       >
         <span className="text-[10px] tracking-[0.2em] uppercase font-medium">Scroll</span>
         <motion.div
-          animate={{ x: [0, 10, 0] }}
+          animate={{ y: [0, 8, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
         >
-          <ArrowRight className="w-4 h-4 md:w-5 md:h-5" />
+          <ArrowDown className="w-4 h-4 md:w-5 md:h-5" />
         </motion.div>
       </motion.div>
     </div>
