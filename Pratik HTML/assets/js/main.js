@@ -145,54 +145,57 @@
   }
 })();
 
-/* ---- GSAP HORIZONTAL SCROLL (index.html only) ---- */
-(function initHorizontalScroll() {
-  const wrapper = document.getElementById('horizontal-wrapper');
-  const track = document.getElementById('horizontal-track');
+/* ---- VERTICAL SCROLL: PROGRESS BAR + ACTIVE NAV + NAV CLICKS ---- */
+(function initVerticalScroll() {
+  const panels      = Array.from(document.querySelectorAll('.panel'));
+  const navLinks    = Array.from(document.querySelectorAll('.nav-links a[data-panel], .nav-mobile a[data-panel]'));
   const progressBar = document.getElementById('progress-bar');
-  if (!wrapper || !track || typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
 
-  gsap.registerPlugin(ScrollTrigger);
+  /* --- scroll progress bar --- */
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const total    = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (total > 0 ? (scrolled / total) * 100 : 0) + '%';
+    }, { passive: true });
+  }
 
-  const panels = track.querySelectorAll('.panel');
-  const totalPanels = panels.length;
+  /* --- active nav via IntersectionObserver --- */
+  if (panels.length && navLinks.length) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = panels.indexOf(entry.target);
+          navLinks.forEach((a, i) => a.classList.toggle('active', i === idx));
+        }
+      });
+    }, { threshold: 0.45, rootMargin: '0px 0px -10% 0px' });
 
-  const scrollTween = gsap.to(track, {
-    x: () => -(track.scrollWidth - window.innerWidth),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: wrapper,
-      pin: true,
-      scrub: 1,
-      end: () => '+=' + (track.scrollWidth - window.innerWidth),
-      snap: {
-        snapTo: 1 / (totalPanels - 1),
-        duration: { min: 0.3, max: 0.6 },
-        delay: 0.1,
-        ease: 'power1.inOut',
-      },
-      onUpdate: (self) => {
-        if (progressBar) progressBar.style.width = (self.progress * 100) + '%';
-        const idx = Math.round(self.progress * (totalPanels - 1));
-        const navLinks = document.querySelectorAll('.nav-links a');
-        navLinks.forEach((a, i) => a.classList.toggle('active', i === idx));
-      },
-    },
-  });
+    panels.forEach(p => obs.observe(p));
+  }
 
-  // Resize handler
-  window.addEventListener('resize', () => ScrollTrigger.refresh());
-
-  // Nav click scrolling
-  document.querySelectorAll('.nav-links a[data-panel], .nav-mobile a[data-panel]').forEach(a => {
-    a.addEventListener('click', (e) => {
+  /* --- nav clicks → smooth scroll --- */
+  navLinks.forEach(a => {
+    a.addEventListener('click', e => {
       e.preventDefault();
-      const idx = parseInt(a.getAttribute('data-panel'));
-      const progress = idx / (totalPanels - 1);
-      const scrollTarget = progress * (track.scrollWidth - window.innerWidth);
-      gsap.to(window, { scrollTo: { y: scrollTarget }, duration: 0.8, ease: 'power2.inOut' });
+      const idx    = parseInt(a.getAttribute('data-panel'), 10);
+      const target = panels[idx];
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+
+      /* close mobile menu if open */
+      const hamburger  = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (hamburger)  hamburger.classList.remove('open');
+      if (mobileMenu) { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
     });
   });
+
+  /* --- scroll-hint click: go to next panel --- */
+  const hint = document.querySelector('.scroll-hint');
+  if (hint) {
+    hint.style.cursor = 'pointer';
+    hint.addEventListener('click', () => panels[1]?.scrollIntoView({ behavior: 'smooth' }));
+  }
 })();
 
 /* ---- TESTIMONIALS CAROUSEL ---- */
