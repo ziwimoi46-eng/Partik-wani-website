@@ -15,10 +15,10 @@ paths = [ "/" ]
 localPort = 21585
 
 [services.development]
-run = "pnpm --filter @workspace/pratik-wani-architects run dev"
+run = "node /home/runner/workspace/artifacts/pratik-wani-architects/server.js"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/pratik-wani-architects", "run", "build" ]
+build = [ "bash", "-c", "mkdir -p /home/runner/workspace/artifacts/pratik-wani-architects/dist/public && cp -r /home/runner/workspace/artifacts/pratik-wani-architects/public/. /home/runner/workspace/artifacts/pratik-wani-architects/dist/public/" ]
 publicDir = "artifacts/pratik-wani-architects/dist/public"
 serve = "static"
 
@@ -28,4 +28,3 @@ to = "/index.html"
 
 [services.env]
 PORT = "21585"
-BASE_PATH = "/"

@@ -1,0 +1,1 @@
+- [Static site server in ESM artifact](static-esm-server.md) — artifact has "type":"module"; server.js must use ESM imports; run command needs absolute path since CWD doubles the relative path.
